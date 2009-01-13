@@ -1,0 +1,17 @@
+div#content {
+  background-image: url('/img/Local-time2.png');
+  background-repeat: no-repeat;
+  background-position: 750px 0em;
+}
+
+h2, h3, h4, h5, h6 {
+  margin-top: 2em;
+}
+
+div.footer {
+  margin-top: 3em;
+}
+
+.right {
+  text-align: right;
+}

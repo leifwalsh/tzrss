@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    {% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="/css/blueprint.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    {% endblock %}
+    {% block javascript %}
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("dojo", "1");
+    </script>
+    <script type="text/javascript" src="/js/tzrss.js"></script>
+    {% endblock %}
+  </head>
+  <body>
+    <div id="content" class="container">
+      {% block content %}{% endblock %}
+      <div id="copy" class="span-6 quiet footer">
+        {% block copy %}&copy; 2009 Leif Walsh{% endblock %}
+      </div>
+      <div id="powered" class="span-18 last footer">
+        {% block powered %}
+        <p class="right">
+        powered by:
+        <a href="http://djangoproject.com/" target="_blank">django</a>
+        ,
+        <a href="http://blueprintcss.org/" target="_blank">blueprint</a>
+        &amp;
+        <a href="http://dojotoolkit.org/" target="_blank">dojo</a>
+        </p>
+        {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>
+

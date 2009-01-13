@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="span-24 last">
+  <h1>morning bell</h1>
+
+  <h4>
+    where did you wake up today? (don't answer this yourself, it's why we're here)
+  </h4>
+
+  <div id="form">
+    <form action="." method="post">
+      <p>
+      <label for="select_tz_name">tell me where you live:</label>
+      <select id="select_tz_name" name="tz_name">
+        {% for tz_name in hr_tz_list %}
+        {% ifequal tz_name local_tz_name %}
+        <option value="{{ tz_name }}" selected="selected">{{ tz_name }}</option>
+        {% else %}
+        <option value="{{ tz_name }}">{{ tz_name }}</option>
+        {% endifequal %}
+        {% endfor %}
+      </select>
+      </p>
+
+      <p>
+      <label for="select_hour">tell me during what hour you woke up:</label>
+      <select id="select_hour" name="hour">
+        {% for h in hours %}
+        {% ifequal h dt_now.hour %}
+        <option value="{{ h }}" selected="selected">{{ h }}</option>
+        {% else %}
+        <option value="{{ h }}">{{ h }}</option>
+        {% endifequal %}
+        {% endfor %}
+      </select>
+      </p>
+
+      <input type="submit" value="okay!" />
+    </form>
+  </div>
+
+  {% if morning_tz_list %}
+  <div id="response">
+    <h4>well, based on that, you could be in any of the following time zones:</h4>
+    <ul>
+      {% for tz in morning_tz_list %}
+      <li>{{ tz.zone }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
