@@ -13,7 +13,7 @@ urlpatterns = patterns('',
      {'document_root': '/home/leif/git/tzrss/img'}),
     (r'^js/(?P<path>.*)$', 'django.views.static.serve',
      {'document_root': '/home/leif/git/tzrss/js'}),
-    (r'^/?$', 'tzrss.tzapp.views.index'),
+    (r'^/?$', 'tzrss.morningbell.views.index'),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
