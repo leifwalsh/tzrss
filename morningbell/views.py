@@ -8,8 +8,7 @@ from tzrss import tzutils
 
 def index(request):
   hr_tz_list = tzutils.human_readable_tz_list()
-  # django is fucking stupid
-  now = tzutils.localize_dt(datetime.now(), 'UTC').astimezone(tzutils.local_tz)
+  now = tzutils.local_tz.localize(datetime.now())
   default_dict = {'dt_now': now,
                   'local_tz_name': tzutils.LOCAL_TZ_NAME,
                   'hours': range(24),

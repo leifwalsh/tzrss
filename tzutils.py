@@ -3,9 +3,10 @@
 from datetime import datetime
 import pytz
 
+from tzrss import settings
+
 # Configuration variables:
-LOCAL_TZ_NAME = 'US/Eastern'  # this is different from the style used in
-                              # settings.py, sadly
+LOCAL_TZ_NAME = settings.TIME_ZONE
 
 local_tz = pytz.timezone(LOCAL_TZ_NAME)
 
