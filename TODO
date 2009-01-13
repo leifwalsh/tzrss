@@ -1,0 +1,4 @@
+ * When changing time zones, we should also change the time to follow
+   it (so that the "current time" you get when you load the page stays
+   current if you change zones).
+
