@@ -1,5 +1,9 @@
 from django.conf.urls.defaults import *
 
+import os
+
+from tzrss import settings
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -8,11 +12,11 @@ urlpatterns = patterns('',
     # Example:
     # (r'^tzrss/', include('tzrss.foo.urls')),
     (r'^css/(?P<path>.*)$', 'django.views.static.serve',
-     {'document_root': '/home/leif/git/tzrss/css'}),
+     {'document_root': os.path.join(settings.BASE_DIR, 'css')}),
     (r'^img/(?P<path>.*)$', 'django.views.static.serve',
-     {'document_root': '/home/leif/git/tzrss/img'}),
+     {'document_root': os.path.join(settings.BASE_DIR, 'img')}),
     (r'^js/(?P<path>.*)$', 'django.views.static.serve',
-     {'document_root': '/home/leif/git/tzrss/js'}),
+     {'document_root': os.path.join(settings.BASE_DIR, 'js')}),
     (r'^/?$', 'tzrss.morningbell.views.index'),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
