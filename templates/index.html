@@ -11,20 +11,17 @@ var init = function() {
   tzrss.varz.last_tz_name = tzrss.dom.select_tz_name.value;
 
   tzrss.fun.changedTimeZone = function() {
-    console.log('Changed to ' + tzrss.dom.select_tz_name.value);
-    console.log('... Send request for change from ' + tzrss.varz.last_tz_name
-      + ' to ' + tzrss.dom.select_tz_name.value);
     dojo.xhrPost({
         'url': '/convert/',
         'content': {
           'hour': tzrss.dom.select_hour.value,
           'last_tz_name': tzrss.varz.last_tz_name,
-          'new_tz_name': tzrss.select_tz_name.value
+          'new_tz_name': tzrss.dom.select_tz_name.value
         },
         load: function(data, ioargs) {
-          tzrss.dom.div_ajax.innerHTML = data;
+          tzrss.dom.select_hour.value = data;  // I'm not sure if this is the
+                                               // proper way to do it.
         }});
-    console.log('... Update dropdown box with new time.');
   };
 
   dojo.connect(tzrss.dom.select_tz_name, 'onchange',

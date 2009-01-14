@@ -8,9 +8,11 @@ from tzrss import settings
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     # Example:
     # (r'^tzrss/', include('tzrss.foo.urls')),
+    (r'^convert/?$', 'tzrss.morningbell.views.convert'),
     (r'^css/(?P<path>.*)$', 'django.views.static.serve',
      {'document_root': os.path.join(settings.BASE_DIR, 'css')}),
     (r'^img/(?P<path>.*)$', 'django.views.static.serve',

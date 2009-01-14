@@ -3,6 +3,7 @@
  */
 
 var tzrss = {
-dom: {},  // holds dom elements
-fun: {}   // holds functions
+dom: {},  // dom elements
+fun: {},  // functions
+varz: {}  // other variables
 };
