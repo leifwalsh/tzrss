@@ -2,6 +2,7 @@
 
 from datetime import datetime
 
+from django.http import Http404, HttpResponse
 from django.shortcuts import render_to_response
 
 from tzrss import tzutils
@@ -27,3 +28,16 @@ def index(request):
     return render_to_response('index.html', default_dict)
   else:
     return render_to_response('index.html', default_dict)
+
+def convert(request):
+  if request.method != 'POST':
+    raise Http404('use POST')
+
+  hour = int(request.POST['hour'])
+  last_tz_name = request.POST['last_tz_name']
+  new_tz_name = request.POST['new_tz_name']
+
+  dt_obj = tzutils.localize_dt(datetime.today().replace(hour=hour), last_tz_name)
+  new_hour = tzutils.convert_dt(dt_obj, new_tz_name).hour
+
+  return HttpResponse('%s' % new_hour)

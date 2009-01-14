@@ -49,6 +49,7 @@ def human_readable_tz_list():
 
   if _HR_TZ_LIST is None:
     _HR_TZ_LIST = _get_human_readable_tz_list()
+
   return _HR_TZ_LIST
 
 def _get_human_readable_tz_list():
@@ -63,7 +64,7 @@ def localize_dt(dt_obj, tz_name):
   something stupid.
 
   Args:
-    dt_object :: datetime.datetime
+    dt_obj :: datetime.datetime
     tz_name :: str
 
   Returns:
@@ -71,6 +72,21 @@ def localize_dt(dt_obj, tz_name):
   """
 
   return pytz.timezone(tz_name).localize(dt_obj)
+
+def convert_dt(dt_obj, tz_name):
+  """Converts a localized datetime object to a new location.
+
+  Note: You can break this one too.
+
+  Args:
+    dt_obj :: datetime.datetime
+    tz_name :: str
+
+  Returns:
+    datetime.datetime
+  """
+
+  return dt_obj.astimezone(pytz.timezone(tz_name))
 
 def get_timezones_for_hour(dt_obj, hour):
   """Takes a localized datetime object and finds the timezones in which the

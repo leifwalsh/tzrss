@@ -1,5 +1,39 @@
 {% extends "base_generic.html" %}
 
+{% block js %}
+{{ block.super }}
+<script type="text/javascript">
+dojo.require('dijit.form.ComboBox');
+var init = function() {
+  tzrss.dom.select_tz_name = dojo.byId('select_tz_name');
+  tzrss.dom.select_hour = dojo.byId('select_hour');
+  tzrss.dom.div_ajax = dojo.byId('ajax');
+  tzrss.varz.last_tz_name = tzrss.dom.select_tz_name.value;
+
+  tzrss.fun.changedTimeZone = function() {
+    console.log('Changed to ' + tzrss.dom.select_tz_name.value);
+    console.log('... Send request for change from ' + tzrss.varz.last_tz_name
+      + ' to ' + tzrss.dom.select_tz_name.value);
+    dojo.xhrPost({
+        'url': '/convert/',
+        'content': {
+          'hour': tzrss.dom.select_hour.value,
+          'last_tz_name': tzrss.varz.last_tz_name,
+          'new_tz_name': tzrss.select_tz_name.value
+        },
+        load: function(data, ioargs) {
+          tzrss.dom.div_ajax.innerHTML = data;
+        }});
+    console.log('... Update dropdown box with new time.');
+  };
+
+  dojo.connect(tzrss.dom.select_tz_name, 'onchange',
+    tzrss.fun.changedTimeZone);
+};
+dojo.addOnLoad(init);
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="span-24 last">
   <h1>morning bell</h1>
@@ -13,8 +47,8 @@
   <div id="form">
     <form action="." method="post">
       <p>
-      <label for="select_tz_name">tell me where you live:</label>
-      <select id="select_tz_name" name="tz_name">
+      <label for="select_tz_name">tell us where you live:</label>
+      <select id="select_tz_name" name="tz_name" value="{{ local_tz_name }}">
         {% for tz_name in hr_tz_list %}
         {% ifequal tz_name local_tz_name %}
         <option value="{{ tz_name }}" selected="selected">{{ tz_name }}</option>
@@ -26,8 +60,8 @@
       </p>
 
       <p>
-      <label for="select_hour">tell me during what hour you woke up:</label>
-      <select id="select_hour" name="hour">
+      <label for="select_hour">tell us during what hour you woke up:</label>
+      <select id="select_hour" name="hour" value="{{ dt_now.hour }}">
         {% for h in hours %}
         {% ifequal h dt_now.hour %}
         <option value="{{ h }}" selected="selected">{{ h }}</option>
@@ -41,6 +75,8 @@
       <input type="submit" value="okay!" />
     </form>
   </div>
+
+  <div id="ajax"></div>
 
   {% if morning_tz_list %}
   <div id="response">
